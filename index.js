@@ -1,14 +1,12 @@
-// MODULOS
 const inquirer = require('inquirer')
 const chalk = require('chalk').default;
-const fs = require('fs');// MODULO INTERNO
+const fs = require('fs');
 const { devNull } = require('os');
 
 console.log("Account initialized!")
 
 Operation()
 
-// OPERAÇÕES DA CONTA
 function Operation(){
     inquirer
     .prompt([
@@ -41,20 +39,18 @@ function Operation(){
 
         }else if(action ===  'Leave'){
             console.log(chalk.bgBlue.white.bold('Thanks for using our service!'))
-            process.exit() // O programa encerra
+            process.exit() 
         }
     })
     .catch(err => console.log(err))
 }
 
-// CRIAR A CONTA
 function createAccount(){
     console.log(chalk.bgMagentaBright.black.bold('Congratulations on creating your account!'))
     console.log(chalk.magenta.bold('Set your account preferences: '))
     buildAccount()
 }
 
-// DA NOME A CONTA 
 function buildAccount(){
     inquirer.prompt([
         {
@@ -64,7 +60,7 @@ function buildAccount(){
     ]).then(answer => {
         const accountName = answer['accountName']
         console.info(accountName)
-        if(!fs.existsSync('accounts')){ // chegar se esse diretório existe
+        if(!fs.existsSync('accounts')){ 
             fs.mkdirSync('accounts')
         }
         if(fs.existsSync(`accounts/${accountName}.json`)){
@@ -80,7 +76,6 @@ function buildAccount(){
     }).catch(err => console.log(err))
 }
 
-// CONSULTAR SALDO
 function accountBalance(){
     inquirer.prompt([{
             name: 'accountName',
@@ -98,7 +93,6 @@ function accountBalance(){
     }).catch(err => console.log(err))
 }
 
-// DEPOSITAR DINHEIRO NA CONTA
 function Deposit(){
     inquirer.prompt([{
         name: 'accountName',
@@ -107,7 +101,7 @@ function Deposit(){
     ]).then((answer) => {
         const accountName = answer['accountName']
 
-        if(!checkAccount(accountName)){ // se checkAccount for falso pede o nome dnv
+        if(!checkAccount(accountName)){ 
             return Deposit()
         }
 
@@ -124,7 +118,6 @@ function Deposit(){
     }).catch(err => console.log(err))
 }
 
-// VERIFICAR SE A CONTA EXISTE
 function checkAccount(accountName){
     if(!fs.existsSync(`accounts/${accountName}.json`)){
         console.log(chalk.bgRed.white.bold('This account does not exist. Please try again.'))
@@ -133,7 +126,6 @@ function checkAccount(accountName){
     return true
 }
 
-// ADCIONAR O VALOR DO DEPOSITO
 function addAmount(accountName, amount){
     const accountData = getAccount(accountName)
     if(!amount){
@@ -144,7 +136,7 @@ function addAmount(accountName, amount){
 
     fs.writeFileSync(
         `accounts/${accountName}.json`,
-        JSON.stringify(accountData), // n entendo esse JSON aqui
+        JSON.stringify(accountData),
         function(err){
             console.log(err)
         },
@@ -152,16 +144,14 @@ function addAmount(accountName, amount){
     console.log(chalk.bgGreen.white.bold(`The deposit was successful: R$${amount}`))
 }
 
-// FUNÇÃO DE "AJUDA" PARA O 'addAmount' "PEGAR" A CONTA, VAI LÊ O ARQUIVO
 function getAccount(accountName){
     const accountJSON = fs.readFileSync(`accounts/${accountName}.json`, {
-        encoding: 'utf8', // não entendi para q serve 
-        flag : 'r' // para indentificar q só quero lê o arquivo
+        encoding: 'utf8', 
+        flag : 'r' 
     })
-    return JSON.parse(accountJSON) // não entendi mto bem
+    return JSON.parse(accountJSON) 
 }
 
-// SACAR O DINHEIRO
 function withdraw(){
     inquirer.prompt([{
         name: 'accountName',
@@ -179,15 +169,14 @@ function withdraw(){
             }
         ]).then((answer) => {
             const amount = answer['amount']
-            console.log(chalk.bgHex('#003366').white(`Amount to withdraw: R$${amount}`)) //#003366 = azul petróleo
+            console.log(chalk.bgHex('#003366').white(`Amount to withdraw: R$${amount}`)) 
             removeAmount(accountName, amount)
 
         }).catch(err => console.log(err))
 
     }).catch(err => console.log(err))
 }
-
-// REMOVER O VALOR 
+ 
 function removeAmount(accountName, amount){
     const accountData = getAccount(accountName)
     if(!amount){
