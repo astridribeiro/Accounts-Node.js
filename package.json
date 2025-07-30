@@ -1,0 +1,27 @@
+{
+  "name": "projeto_1",
+  "version": "1.0.0",
+  "description": "Primeiro projeto em node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astridrodrigues/1_Projeto_Node.git"
+  },
+  "keywords": [
+    "accounts"
+  ],
+  "author": "Astrid Rodrigues Ribeiro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/astridrodrigues/1_Projeto_Node/issues"
+  },
+  "homepage": "https://github.com/astridrodrigues/1_Projeto_Node#readme",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "inquirer": "^8.2.4"
+  }
+}
