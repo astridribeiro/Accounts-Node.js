@@ -5,9 +5,9 @@ Aplicação Node.js para gerenciamento de contas bancárias fictícias, desenvol
 - **Node.js**
 - **JavaScript**
 - **NPM**
-- **Módulo `fs`** (File System)
-- **Inquirer** (para interação via terminal)
-- **Chalk** (para estilizar saídas no console)
+- **Módulo File System** 
+- **Inquirer** 
+- **Chalk**
 
 ## 📂 Funcionalidades
 - Criar nova conta
